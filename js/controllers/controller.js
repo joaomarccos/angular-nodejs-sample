@@ -1,29 +1,34 @@
-angular.module('app').controller('controller', function($scope, $http){
+angular.module('app').controller('controller', function($scope, contatosAPI, operadorasAPI){
 	$scope.contatos = [];
 	$scope.operadoras = [];
 
 	var carregarContatos = function  () {
-		$http.get("http://127.0.0.1:3000/contatos").then(function (response) {
+		contatosAPI.getContatos().then(function (response) {			
 			$scope.contatos = response.data;				
 		});
 	};
 
 	var carregarOperadoras = function  () {
-		$http.get("http://127.0.0.1:3000/operadoras").then(function (response) {
+		operadorasAPI.getOperadoras().then(function (response) {
 			$scope.operadoras = response.data;				
 		});
 	};
 
 	$scope.adicionarContato = function (contato) {
-		$scope.contatos.push(angular.copy(contato));
-		delete $scope.contato;
-		$scope.contatoForm.$setPristine();
+		contatosAPI.salvarContato(contato).then(function  (response) {
+			delete $scope.contato;
+			$scope.contatoForm.$setPristine();
+			carregarContatos();
+		});		
 	};
 
 	$scope.apagarContatos = function  (contatos) {
-		$scope.contatos = (contatos.filter(function  (contato) {
-			return !contato.selecionado;
-		}))
+		var contatosToRm = contatos.filter(function  (contato) {			
+			return contato.selecionado;
+		});				
+		contatosAPI.apagarContatos(contatosToRm).then(function  (response) {
+			carregarContatos();
+		})
 	};		
 
 	$scope.isContatoSelecionado = function  (contatos) {
