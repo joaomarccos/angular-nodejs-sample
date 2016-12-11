@@ -1,0 +1,17 @@
+{
+  "name": "angular-school",
+  "version": "1.0.0",
+  "description": "Estudos com AngularJS",  
+  "scripts": {
+    "start": "node app.js & http-server -o -p 3001",
+    "initdb":"node db.js"
+  },
+  "author": "João Marcos F",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "http-server": "^0.9.0",
+    "tingodb": "^0.4.2"
+  }
+}
