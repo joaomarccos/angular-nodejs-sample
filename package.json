@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Estudos com AngularJS",  
   "scripts": {
-    "start": "node app.js & http-server -o -p 3001",
-    "initdb":"node db.js"
+    "start": "node node/app.js & http-server -o -p 3001",
+    "initdb":"node node/db.js"
   },
   "author": "João Marcos F",
   "license": "ISC",

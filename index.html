@@ -2,12 +2,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Angular School</title>
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<style>
-		input, button, select{
-			margin: 2px;
-		}
-	</style>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">	
+	<link rel="stylesheet" href="css/app.css">
 </head>
 <body ng-controller="controller" style="margin: 0 auto; width: 500px">
 	<div class="well well-sm text-center">
@@ -85,55 +81,11 @@
 			</div>
 		</div>
 	</div>
-	<div ng-include="'footer.html'" scope="" onload=""></div>
+	<div ng-include="'partial/footer.html'"></div>
 </body>
 
 <script type="text/javascript" src="bower_components/angular/angular.js"></script>
 <script type="text/javascript" src="bower_components/angular-messages/angular-messages.js"></script>
-<script type="text/javascript">
-	/**
-	* app Module
-	*
-	* Modulo principal da aplicação
-	*/
-	angular.module('app', ['ngMessages']);
-	angular.module('app').controller('controller', function($scope, $http){
-		$scope.contatos = [];
-		$scope.operadoras = [];
-
-		var carregarContatos = function  () {
-			$http.get("http://127.0.0.1:3000/contatos").then(function (response) {
-				$scope.contatos = response.data;				
-			});
-		};
-
-		var carregarOperadoras = function  () {
-			$http.get("http://127.0.0.1:3000/operadoras").then(function (response) {
-				$scope.operadoras = response.data;				
-			});
-		};
-
-		$scope.adicionarContato = function (contato) {
-			$scope.contatos.push(angular.copy(contato));
-			delete $scope.contato;
-			$scope.contatoForm.$setPristine();
-		};
-
-		$scope.apagarContatos = function  (contatos) {
-			$scope.contatos = (contatos.filter(function  (contato) {
-				return !contato.selecionado;
-			}))
-		};		
-
-		$scope.isContatoSelecionado = function  (contatos) {
-			 return contatos.some(function  (contato) {
-				return contato.selecionado;
-			})
-		};
-
-		carregarContatos();
-		carregarOperadoras();
-	});
-
-</script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/controllers/controller.js"></script>
 </html>
