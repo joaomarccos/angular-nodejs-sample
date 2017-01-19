@@ -1,4 +1,4 @@
-angular.module('app').controller('controller', function($scope, contatosAPI, operadorasAPI){
+angular.module('app').controller('controller', ['$scope','contatosAPI', 'operadorasAPI', function($scope, contatosAPI, operadorasAPI){
 	$scope.contatos = [];
 	$scope.operadoras = [];
 
@@ -39,4 +39,4 @@ angular.module('app').controller('controller', function($scope, contatosAPI, ope
 
 	carregarContatos();
 	carregarOperadoras();
-});
+}]);

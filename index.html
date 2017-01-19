@@ -1,16 +1,24 @@
 <html ng-app="app">
 <head>
 	<meta charset="UTF-8">
-	<title>Angular School</title>
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">	
-	<link rel="stylesheet" href="css/app.css">
+	<title>Angular School</title>	
 	<link rel="icon" href="https://www.gravatar.com/avatar/438b0c16282fa3ae476be1a27ffca40f">	
+	<!-- inject:css -->
+  	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+  	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  	<link rel="stylesheet" href="/build/css/app.css">
+  	<!-- endinject -->
 </head>
 <body ng-controller="controller" style="margin: 0 auto; width: 500px">
 	<div class="well well-sm text-center">
 		<h2>Lista Telefonica</h2>
 	</div>
 	<div class="panel">
+
+		<ui-alert ng-if="error" title="Oops! Aconteceu algum erro">
+			{{error}}
+		</ui-alert>
+
 		<div class="panel-header"><h3>Contatos:</h3></div>
 		<div class="panel-body">
 		<div class="input-group">					
@@ -25,13 +33,13 @@
 					<th>Telefone</th>
 					<th>Operadora</th>
 					<th></th>
-				</tr>
+				</tr>				
 				<tr ng-repeat="contato in contatos | filter:busca | orderBy:'name'" ng-class="{'bg-warning': contato.selecionado}">
 					<td>
 						<input ng-model="contato.selecionado" type="checkbox">
 					</td>
 					<td>
-						{{contato.name}}
+						{{contato.name | capitalize}}
 					</td>
 					<td>
 						{{contato.phone}}
@@ -83,13 +91,20 @@
 		</div>
 	</div>
 	<div ng-include="'partial/footer.html'"></div>
+	<!-- inject:js -->
+  	<script src="/bower_components/angular/angular.min.js"></script>
+  	<script src="/bower_components/angular-messages/angular-messages.min.js"></script>
+  	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  	<script src="/bower_components/jquery/dist/jquery.slim.min.js"></script>
+  	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  	<script src="/bower_components/jquery/external/sizzle/dist/sizzle.min.js"></script>
+  	<script src="/build/js/app.js"></script>
+  	<script src="/build/js/controllers/controller.js"></script>
+  	<script src="/build/js/directives/alertDirective.js"></script>
+  	<script src="/build/js/filters/capitalizeFilter.js"></script>
+  	<script src="/build/js/services/contatosService.js"></script>
+  	<script src="/build/js/services/operadorasService.js"></script>
+  	<script src="/build/js/values/config.js"></script>
+  	<!-- endinject -->
 </body>
-
-<script type="text/javascript" src="bower_components/angular/angular.js"></script>
-<script type="text/javascript" src="bower_components/angular-messages/angular-messages.js"></script>
-<script type="text/javascript" src="js/app.js"></script>
-<script type="text/javascript" src="js/controllers/controller.js"></script>
-<script type="text/javascript" src="js/services/contatosService.js"></script>
-<script type="text/javascript" src="js/services/operadorasService.js"></script>
-<script type="text/javascript" src="js/values/config.js"></script>
 </html>

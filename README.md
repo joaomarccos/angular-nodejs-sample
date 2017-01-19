@@ -8,6 +8,6 @@ No terminal ou cmd execute:
 
 **npm run initdb** - Inicializar banco com alguns dados (executar apenas uma vez)
 
-**npm start** - Iniciar aplicação, seu browser abrirá automaticamente
+**gulp** - Iniciar aplicação, seu browser abrirá automaticamente
 
 Aprenda Angular em https://www.youtube.com/channel/UCkqOofjb7nl6V8vXrIbGtiQ

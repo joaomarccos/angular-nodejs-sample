@@ -1,10 +1,10 @@
 {
   "name": "angular-school",
   "version": "1.0.0",
-  "description": "Estudos com AngularJS",  
+  "description": "Estudos com AngularJS",
   "scripts": {
     "start": "node node/app.js & http-server -o -p 3001",
-    "initdb":"node node/db.js"
+    "initdb": "node node/db.js"
   },
   "author": "João Marcos F",
   "license": "ISC",
@@ -13,5 +13,12 @@
     "express": "^4.14.0",
     "http-server": "^0.9.0",
     "tingodb": "^0.4.2"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",    
+    "gulp-inject": "^4.2.0",    
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-webserver": "^0.9.1"
   }
 }

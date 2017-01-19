@@ -1,4 +1,4 @@
-angular.module('app').service('contatosAPI', function($http, config){
+angular.module('app').service('contatosAPI', ['$http', 'config', function($http, config){
 	this.getContatos = function  () {
 		return $http.get(config.baseURL+"/contatos");
 	};
@@ -10,4 +10,4 @@ angular.module('app').service('contatosAPI', function($http, config){
 	this.apagarContatos = function  (contatos) {
 		return $http.post(config.baseURL+"/excluircontatos", contatos);
 	}
-})
+}])
