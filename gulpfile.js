@@ -7,10 +7,13 @@
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var webserver = require('gulp-webserver');
-var spawn = require('child_process').spawn,
-    node;
+var spawn = require('child_process').spawn;
 var sass = require('gulp-sass');
 var inject = require('gulp-inject');
+var watch = require('gulp-watch');
+var clean = require('gulp-clean');
+var runSequence = require('run-sequence');
+var node;
 
 const BUILD_DIR = 'build';
 
@@ -41,14 +44,14 @@ gulp.task('webserver', function() {
     gulp.src('')
         .pipe(webserver({
             livereload: {
-	           enable: true, // need this set to true to enable livereload 
-	           filter: function(fileName) {	           		
-	               if (fileName.match(/.db/)) { // exclude all source maps from livereload 
-	                   return false;
-	               } else {
-	                   return true;
-	               }
-           		}
+                enable: true, // need this set to true to enable livereload 
+                filter: function(fileName) {
+                    if (fileName.match(/.db/)) { // exclude all source maps from livereload 
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
             },
             open: true,
             port: 3031,
@@ -61,7 +64,7 @@ gulp.task('webserver', function() {
  * compile scss files
  */
 gulp.task('sass', function() {
-    gulp.src('scss/**/*.scss')
+    return gulp.src('scss/**/*.scss')
         .pipe(sass.sync({ outputStyle: 'compressed' }).on('error', sass.logError))
         .pipe(gulp.dest(BUILD_DIR + '/css'))
 });
@@ -80,7 +83,7 @@ function errorLog(error) {
  * Minify the js files
  */
 gulp.task('minify', function() {
-    gulp.src('js/**/*.js')            
+    return gulp.src('js/**/*.js')
         .pipe(uglify())
         .on('error', errorLog)
         .pipe(gulp.dest(BUILD_DIR + '/js'));
@@ -97,14 +100,24 @@ gulp.task('html', function() {
         .pipe(gulp.dest('.'));
 });
 
+gulp.task('filesadded:watch', function() {
+    return watch('{js,scss}/**/*.{css,js}', { events: ['add'] }, function() {
+        runSequence(['minify', 'sass'], 'html');
+    })
+});
+
+gulp.task('clean', function() {
+    return gulp.src(BUILD_DIR, { read: false })
+        .pipe(clean({force: true}));
+});
+
 /**
  * $ gulp
  * description: start the development environment
  */
 gulp.task('default', function() {
-    gulp.run(['rest', 'webserver', 'minify', 'sass', 'html']);
-    gulp.run(['minify:watch', 'sass:watch']);
+    runSequence('clean', ['minify', 'sass'], 'html', 'rest', 'webserver',['minify:watch', 'sass:watch', 'filesadded:watch']);    
     gulp.watch(['node/app.js'], function() {
-        gulp.run('rest')
+        gulp.start('rest')
     })
 })

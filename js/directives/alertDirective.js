@@ -1,9 +1,9 @@
-angular.module("app").directive("uiAlert",function(){
+angular.module('app').directive('uiAlert',function(){
 	return {
-		templateUrl:"partial/alert.html",
-		restrict: "E",
+		templateUrl:'partial/alert.html',
+		restrict: 'E',
     	scope: { 
-    		title: "@" 
+    		title: '@' 
     	},
     	transclude: true
 	}
