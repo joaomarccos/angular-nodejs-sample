@@ -1,4 +1,4 @@
-# angular-nodejs-sample (Estudos)
+# angular-nodejs-sample
 
 ## Aplicação simples usando expressjs, mongodb embarcado e angularjs
 
@@ -10,4 +10,4 @@ No terminal ou cmd execute:
 
 **gulp** - Iniciar aplicação, seu browser abrirá automaticamente
 
-Aprenda Angular em https://www.youtube.com/channel/UCkqOofjb7nl6V8vXrIbGtiQ
+https://www.youtube.com/channel/UCkqOofjb7nl6V8vXrIbGtiQ
