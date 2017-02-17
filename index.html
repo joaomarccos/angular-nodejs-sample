@@ -9,98 +9,27 @@
   	<link rel="stylesheet" href="/build/css/app.css">
   	<!-- endinject -->
 </head>
-<body ng-controller="controller" style="margin: 0 auto; width: 500px">
+<body style="margin: 0 auto; width: 500px">
 	<div class="well well-sm text-center">
 		<h2>Lista Telefonica</h2>
 	</div>
-	<div class="panel">
-
-		<ui-alert ng-if="error" title="Oops! Aconteceu algum erro">
-			{{error}}
-		</ui-alert>
-
-		<div class="panel-header"><h3>Contatos:</h3></div>
-		<div class="panel-body">
-		<div class="input-group">					
-			<input type="text" class="form-control" ng-model="busca" placeholder="busca" style="margin: 0">			
-			<div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>			
-		</div>
-		<br>
-			<table class="table table-responsive" ng-show="contatos.length">
-				<tr>
-					<th></th>
-					<th>Nome</th>
-					<th>Telefone</th>
-					<th>Operadora</th>
-					<th></th>
-				</tr>				
-				<tr ng-repeat="contato in contatos | filter:busca | orderBy:'name'" ng-class="{'bg-warning': contato.selecionado}">
-					<td>
-						<input ng-model="contato.selecionado" type="checkbox">
-					</td>
-					<td>
-						{{contato.name | capitalize}}
-					</td>
-					<td>
-						{{contato.phone}}
-					</td>
-					<td>
-						{{contato.operadora.name | uppercase}}
-					</td>
-					<td>
-						<div class="color" ng-style="{'background-color': contato.color}"></div>
-					</td>
-				</tr>
-			</table>
-		</div>			
-		<div class="panel-footer">
-			<form name="contatoForm">
-				<h4>Adicione um contato:</h4>
-				<input placeholder="Nome" type="text" class="form-control" ng-model="contato.name" ng-required="true" ng-minlength="10" name="name">
-				<input placeholder="telefone" type="text" class="form-control" ng-model="contato.phone"ng-required="true" name="phone" ng-pattern="/^\d{4,5}-\d{4}$/">						
-				<select name="operadoras" class="form-control" ng-model="contato.operadora" ng-options="operadora.name group by operadora.categoria for operadora in operadoras">
-					<option value="">Selecione uma Operadora</option>
-				</select>
-				<br>
-				<div class="form-group">  				
-					<label>Atribua uma cor:</label>						
-					<input class="form-control" type="color" ng-model="contato.color" value="#000000">				
-				</div>
-			</form>
-			<br>					
-			<button class="btn btn-block btn-primary" ng-click="adicionarContato(contato)" ng-disabled="contatoForm.$invalid">Adicionar contato</button>			
-			<button class="btn btn-block btn-danger" ng-hide="!isContatoSelecionado(contatos)" ng-click="apagarContatos(
-			contatos)" >Apagar contatos selecionados</button>										
-			<br>
-			<div ng-messages="contatoForm.name.$error" ng-if="contatoForm.name.$dirty">
-				<div ng-message="required" class="alert alert-danger">
-					Nome é obrigatório
-				</div>
-				<div ng-message="minlength" class="alert alert-danger">
-					Nome muito curto
-				</div>				
-			</div>			
-			<div ng-messages="contatoForm.phone.$error" ng-if="contatoForm.phone.$dirty">
-				<div ng-message="required" class="alert alert-danger">
-					Telefone é obrigatório
-				</div>
-				<div ng-message="pattern" class="alert alert-danger">
-					Telefone deve estar no padrão 00000-0000
-				</div>				
-			</div>
-		</div>
+	<div class="panel" ng-view>
 	</div>
 	<div ng-include="'partial/footer.html'"></div>
 	<!-- inject:js -->
   	<script src="/bower_components/angular/angular.min.js"></script>
   	<script src="/bower_components/angular-messages/angular-messages.min.js"></script>
+  	<script src="/bower_components/angular-route/angular-route.min.js"></script>
   	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
   	<script src="/bower_components/jquery/dist/jquery.slim.min.js"></script>
   	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   	<script src="/bower_components/jquery/external/sizzle/dist/sizzle.min.js"></script>
   	<script src="/build/js/app.js"></script>
-  	<script src="/build/js/controllers/controller.js"></script>
-  	<script src="/build/js/directives/alertDirective.js"></script>
+  	<script src="/build/js/components/alertComponent.js"></script>
+  	<script src="/build/js/config/routeConfig.js"></script>
+  	<script src="/build/js/controllers/addContatoController.js"></script>
+  	<script src="/build/js/controllers/contatosController.js"></script>
+  	<script src="/build/js/directives/navigateDirective.js"></script>
   	<script src="/build/js/filters/capitalizeFilter.js"></script>
   	<script src="/build/js/services/contatosService.js"></script>
   	<script src="/build/js/services/operadorasService.js"></script>

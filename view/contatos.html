@@ -1,0 +1,41 @@
+<ui-alert ng-if="error">
+	{{error}}
+</ui-alert>
+
+<div class="panel-header"><h3>Contatos:</h3></div>
+<div class="panel-body">
+<div class="input-group">					
+	<input type="text" class="form-control" ng-model="busca" placeholder="busca" style="margin: 0">			
+	<div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>			
+</div>
+<br>
+	<table class="table table-responsive" ng-show="contatos.length">
+		<tr>
+			<th></th>
+			<th>Nome</th>
+			<th>Telefone</th>
+			<th>Operadora</th>
+			<th></th>
+		</tr>				
+		<tr ng-repeat="contato in contatos | filter:busca | orderBy:'name'" ng-class="{'bg-warning': contato.selecionado}">
+			<td>
+				<input ng-model="contato.selecionado" type="checkbox">
+			</td>
+			<td>
+				{{contato.name | capitalize}}
+			</td>
+			<td>
+				{{contato.phone}}
+			</td>
+			<td>
+				{{contato.operadora.name | uppercase}}
+			</td>
+			<td>
+				<div class="color" ng-style="{'background-color': contato.color}"></div>
+			</td>
+		</tr>
+	</table>
+	<button class="btn btn-block btn-danger" ng-hide="!isContatoSelecionado(contatos)" ng-click="apagarContatos(
+	contatos)" >Apagar contatos selecionados</button>										
+	<a navigate-to="/adicionarContato" class="btn btn-default btn-block">Adicionar contato</a>
+</div>			
